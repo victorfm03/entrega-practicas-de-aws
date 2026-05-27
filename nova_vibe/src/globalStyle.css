@@ -1,0 +1,88 @@
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura */
+  }
+  
+  .main-content > footer {
+    margin-top: auto !important; /* Empuja el footer hacia abajo */
+  }
+
+  /* Flechas carrusel MDB + MUI */
+.carousel-control-prev,
+.carousel-control-next {
+  opacity: 1 !important;
+}
+
+.navbar-light-custom{
+  background-color: #00BFFF;
+}
+
+.navbar-dark-custom {
+  background-color: #0047AB;
+}
+
+.icon-light-custom{
+  background-color: #0047AB;
+}
+
+.icon-dark-custom {
+  background-color: #00BFFF;
+}
+
+.marco{
+  color: white;
+  font-weight: bold;
+}
+
+.marco2{
+  color: white;
+}
+
+.marco2:hover{
+  color: grey;
+  cursor: pointer
+}
+
+.icon-sun {
+  color: #FFD700; /* dorado */
+}
+
+.icon-moon {
+  color: #1E90FF; /* azul */
+}
+
+.icon-light-custom:hover{
+  background-color: #0055C0;
+}
+
+.icon-dark-custom:hover {
+  background-color: #00A5E0;
+}
+
+.link{
+  color: #FFFFFF; /* color normal */
+  text-decoration: none; /* opcional, quita subrayado */
+  transition: color 0.3s ease;
+}
+
+.link:hover{
+  color: grey;
+  cursor: pointer
+}
+
+.link2{
+  color: black; /* color normal */
+  text-decoration: none; /* opcional, quita subrayado */
+  transition: color 0.3s ease;
+}
+
+.link:hover{
+  color: grey;
+  cursor: pointer
+}

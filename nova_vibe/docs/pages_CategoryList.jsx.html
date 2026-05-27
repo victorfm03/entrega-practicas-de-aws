@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/CategoryList.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/CategoryList.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Box, Stack, Typography, TextField, Button } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import Tabla from "../components/Tabla";
+import { useEffect, useState } from "react";
+import { apiUrl } from "../config";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import DeleteForEverIcon from "@mui/icons-material/DeleteForever";
+import { useNavigate } from "react-router";
+
+/**
+ * Página de listado de categorías.
+ * Muestra las categorías existentes y permite búsqueda y eliminación.
+ *
+ * @returns {JSX.Element} Vista de listado de categorías.
+ */
+function CategoryList() {
+  const [rows, setRows] = useState([]);
+  const [nombre, setNombre] = useState("");
+  const navigate = useNavigate();
+
+  const columns = [
+    { field: "id_category", header: "ID", align: "right" },
+    { field: "category_name", header: "Nombre" },
+    { field: "description", header: "descripcion" },
+    {
+      field: "like_count",
+      header: "Popularidad",
+      render: (row) => `${row.like_count}`,
+    },
+    {
+      field: "seasonal_product_available",
+      header: "PDT",
+      render: (row) => (row.seasonal_product_available ? "Sí" : "No"),
+    },
+    { field: "creation_date", header: "Fecha de creacion" },
+  ];
+
+  const actions = [
+    {
+      icon: &lt;EditNoteIcon fontSize="small" />,
+      onClick: (row) => navigate("/modificarCategoria/" + row.id_category),
+    },
+    {
+      icon: &lt;DeleteForEverIcon fontSize="small" />,
+      color: "error",
+      onClick: (row) => handleDelete(row.id_category),
+    },
+  ];
+
+  useEffect(() => {
+    async function getcategory() {
+      const response = await fetch(apiUrl + "/category");
+
+      if (response.ok) {
+        const data = await response.json();
+        setRows(data.datos);
+      }
+    }
+
+    getcategory();
+  }, []);
+
+  /**
+   * Elimina una categoría seleccionada y actualiza la tabla local.
+   *
+   * @param {number|string} id_category Identificador de la categoría.
+   */
+  const handleDelete = async (id_category) => {
+    if (!confirm("Seguro que quieres borrar este categoria")) {
+      return;
+    }
+
+    const response = await fetch(apiUrl + "/category/" + id_category, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      const categoriasRestantes = rows.filter((category) => category.id_category != id_category);
+      setRows(categoriasRestantes);
+    }
+  };
+
+  const handleChange = (e) => {
+    setNombre(e.target.value);
+  };
+
+  /**
+   * Busca categorías por nombre usando el endpoint parametrizado.
+   *
+   * @param {React.FormEvent&lt;HTMLFormElement>} e Evento de envío de formulario.
+   */
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      let url = "/category";
+      if (nombre !== "") {
+        url += "/parametrizado/" + nombre;
+      }
+
+      const response = await fetch(apiUrl + url);
+
+      if (response.ok) {
+        const respuesta = await response.json();
+        if (respuesta.ok) {
+          setRows(respuesta.datos);
+        }
+      }
+    } catch (error) {
+      console.error("Error al buscar categorías:", error);
+      alert("Error al buscar categorías.");
+    }
+  };
+
+  return (
+    &lt;Box id="pdf-Content">
+      &lt;Typography variant="h4" align="center" sx={{ mt: 2 }}>
+        Lista de categorias
+      &lt;/Typography>
+      &lt;Grid container spacing={2} sx={{ mt: 2, justifyContent: "center", alignItems: "right" }}>
+        &lt;Grid size={{ xs: 12, sm: 6, md: 4 }}>
+          &lt;Stack component="form" spacing={2} onSubmit={handleSubmit} sx={{ mx: 2 }}>
+            &lt;TextField
+              id="nombre"
+              label="Nombre de categoria"
+              variant="outlined"
+              name="nombre"
+              value={nombre}
+              onChange={handleChange}
+            />
+            &lt;Button variant="contained" type="submit">
+              Buscar
+            &lt;/Button>
+          &lt;/Stack>
+        &lt;/Grid>
+      &lt;/Grid>
+      &lt;Tabla columns={columns} rows={rows.map((r) => ({ ...r, id: r.id_category }))} actions={actions} />
+    &lt;/Box>
+  );
+}
+
+export default CategoryList;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Carrousel">Carrousel</a></li><li><a href="global.html#Category">Category</a></li><li><a href="global.html#CategoryList">CategoryList</a></li><li><a href="global.html#CategoryModify">CategoryModify</a></li><li><a href="global.html#Descripcion">Descripcion</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#Product">Product</a></li><li><a href="global.html#ProductList">ProductList</a></li><li><a href="global.html#ProductModify">ProductModify</a></li><li><a href="global.html#Tabla">Tabla</a></li><li><a href="global.html#ThemeContext">ThemeContext</a></li><li><a href="global.html#ThemeProviderWrapper">ThemeProviderWrapper</a></li><li><a href="global.html#apiUrl">apiUrl</a></li><li><a href="global.html#getTheme">getTheme</a></li><li><a href="global.html#router">router</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed May 27 2026 18:05:53 GMT+0200 (hora de verano de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
