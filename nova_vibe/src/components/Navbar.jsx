@@ -54,6 +54,15 @@ function Navbar() {
                 <MDBDropdownItem tag={Link} to="/productList" link>
                   ver/modificar todos los productos
                 </MDBDropdownItem>
+
+                <MDBDropdownItem tag={Link} to="/productListCards" link>
+                  ver/modificar todos los productos por cards
+                </MDBDropdownItem>
+
+                <MDBDropdownItem tag={Link} to="/productListDownload" link>
+                  Descargar listado de productos
+                </MDBDropdownItem>
+
                 <MDBDropdownItem tag={Link} to="/productosPorCategoria" link>
                   Productos por categoría (gráfico)
                 </MDBDropdownItem>

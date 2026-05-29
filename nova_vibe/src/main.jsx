@@ -19,6 +19,8 @@ import CategoryList from './pages/CategoryList.jsx';
 import CategoryModify from './pages/CategoryModify.jsx';
 import ProductsByCategory from './pages/ProductsByCategory.jsx';
 import CategoriesByProduct from './pages/CategoriesByProduct.jsx';
+import ProductListCard from './pages/ProductListCard.jsx';
+import ProductListDownload from './pages/ProductListDownload.jsx';
 
 /**
  * Definición de rutas de la aplicación.
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
       {
         path: "productList",
         element: <ProductList />,
+      },
+      {
+        path: "productListCards",
+        element: <ProductListCard />,
+      },
+      {
+        path: "productListDownload",
+        element: <ProductListDownload />,
       },
       {
         path: "productosPorCategoria",
